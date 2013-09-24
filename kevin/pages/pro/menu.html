@@ -1,0 +1,292 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <title>菜单</title>
+	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="Author" content="kevin">
+      <link rel="stylesheet" href="">
+      <script src="../../static/js/jquery-1.6.2.js" type="text/javascript"></script>  
+	  <script language="javascript">
+	      $(function(){
+	      })
+	  </script>
+	  <style type="text/css">
+		  body{
+
+		  }
+		  .info{
+			clear:both;
+			height:20px;
+			background:#EAF2FE;
+			padding-left:50px;
+		  }
+		  /* 对应的div*/
+		  #hmenu{
+			font-family:Arial;
+			font-size:14px;
+			background:white url('../../static/img/pro/under.gif');
+		  }
+		  /* 无序列表*/
+		  #hmenu ul{
+			padding:0 0 0 8px;
+			margin:0;
+			list-style:none;
+			height: 35px;
+		  }
+		  /* 无序列表元素*/
+		  #hmenu ul li{
+			float:left; /*变成一列 */
+		  }
+		  /* 无序列表的超链接元素，即第一个钩子*/
+		  #hmenu ul li a{
+			display:block;   /* 设置成块级元素，整个区域都会响应鼠标事件*/
+			line-height:35px;   /* 设置行高，文字会居中排列*/
+			color:#ddd;
+			text-decoration:none;
+			padding:0 0 0 14px;
+		  }
+		  /* 钩子一的hover样式*/
+		  #hmenu ul li a:hover{
+			color:#fff;
+			background:url('../../static/img/pro/hover.gif');
+		  }
+		  /* 第二个钩子*/
+		  #hmenu ul li a b{
+			display:block;
+			padding-right:14px;
+		  }/* hover时，钩子二对应的样式*/
+		  #hmenu ul li a:hover b{
+			color:#fff;
+			background:url('../../static/img/pro/hover.gif') no-repeat right top;
+		  }
+
+	  /* #menu 双层滑动门
+		背景滑动门解决动态适应宽度
+		mouseover滑动解决hover样式
+		单文件管理：减少网络资源
+	  */
+		#menu ul {
+		  font-family:Arial;
+		  font-size:14px;
+  		  padding:0 0 0 8px; 
+		  margin:0 auto;
+          list-style:none; 
+          height:35px; 
+          white-space:nowrap; /* 不允许从空白字符处折行*/
+          }
+		  
+	    #menu ul li {
+		  float:left;
+		  margin:0 2px;
+		}
+		/* 背景滑动门设置*/
+	    #menu ul li a{
+		  display:block; 
+		  float:left;
+  		  line-height:35px;
+		  color:#666;
+		  text-decoration:none;
+		  padding:0 0 0 14px;
+		  background:url('../../static/img/pro/menuhua.gif');
+		}
+
+		 #menu ul li a b{
+		  display:block;
+		  padding:0 14px 0 0;
+  		  background:url('../../static/img/pro/menuhua.gif') no-repeat right top;
+   		 }
+		/* hover滑动门设置*/
+		#menu ul li a:hover{
+		  color:#fff; 
+   		  background: url('../../static/img/pro/menuhua.gif') left center;
+		  }
+		  
+	  	#menu ul li a:hover b{
+		  color:#fff; 
+   		  background: url('../../static/img/pro/menuhua.gif') no-repeat right center;
+	      }
+
+		/*#current当独设置*/
+		#menu ul li.current a{
+		  color:#fff; 
+   		  background: url('../../static/img/pro/menuhua.gif') no-repeat left bottom;
+		  }
+		#menu ul li.current a b{
+   		  background: url('../../static/img/pro/menuhua.gif') no-repeat right bottom;
+		  }
+		/*#current的hover事件感觉上不发生变化 */
+		#menu ul li.current a:hover{
+   		  background: url('../../static/img/pro/menuhua.gif') no-repeat left bottom;
+   		  cursor:default;
+		  }
+		
+		#menu ul li.current a:hover b{
+   		  background: url('../../static/img/pro/menuhua.gif') no-repeat right bottom;
+   		  cursor:default;
+   		  }
+		 /* #menu1 跳起来的菜单*/
+		 #menu1 ul {
+		  font-family:Arial;
+		  font-size:14px;
+  		  padding:0 0 0 8px; 
+		  margin:0 auto;
+          list-style:none; 
+          height:35px; 
+          white-space:nowrap; /* 不允许从空白字符处折行*/
+          }
+		  
+	    #menu1 ul li {
+		  float:left;
+		  margin:0 1px;
+		  height:50px;
+		}
+
+	    #menu1 ul li a{
+		  display:block; 
+		  float:left;
+  		  line-height:35px;
+		  margin-top:15px;
+		  color:#fff;
+		  padding:0 10px;
+		  text-decoration:none;
+		  background:#1E4080;
+		  border-top-left-radius:6px;
+		  border-top-right-radius:6px;
+		}
+		#menu1 ul li a:hover{
+			margin-top:0;
+			line-height:50px; /* 将预留的高度都补出来*/
+		}
+		/*****#slidemenu  下拉菜单 */
+		#slidemenu{
+			margin:0;
+			padding:0;
+			width:610px;
+			list-style-type:none;
+			font:14px Arial;
+		}
+		#slidemenu li{
+			float:left;
+			width:150px;
+			padding:0;
+			margin:0 1px 0 0;
+		}
+		/* 设置菜单项*/
+		#slidemenu li dl{
+			margin:0;
+			padding:0 0 10px 0;
+			background: #cb6 url('../../static/img/pro/slidemenu/bottom.gif') no-repeat bottom left;  /* 底部边角变圆*/
+		}
+		/* 设置菜单项
+		  设置暗红色边框，作为和子菜单的分割
+		*/
+		#slidemenu li dt{
+			margin: 0;
+			padding:5px;
+ 			text-align:center;
+			border-bottom:1px solid #b00;
+			background:#ed8 url('../../static/img/pro/slidemenu/top.gif') no-repeat top left;  /* 顶部边角变圆*/
+		}
+		/* 常规设置*/
+		#slidemenu li dt a,#slidemenu li dt a:visited{
+			display:block;
+			color:#333;
+			text-decoration:none;
+		}
+		/* 设置菜单的 dd 常规设置*/
+		#slidemenu li dd{
+			margin: 0;
+			padding: 0;
+			color:#fff;
+			background:#47a;
+		}
+		/* 最后一项子菜单的样式*/
+		#slidemenu li dd.last{
+			border-bottom:1px solid #b00;
+		}
+		#slidemenu li dd a,#slidemenu li dd a:visited{
+			display:block;
+			color:#fff;
+			text-decoration:none;
+			padding:4px 5px 4px 20px;
+			background:#47a url('../../static/img/pro/slidemenu/arrow.gif') no-repeat 10px 10px;
+		}
+		/* 关闭子菜单*/
+		#slidemenu li dd{
+			display:none;
+		}
+		/* 鼠标响应*/
+		#slidemenu li:hover dd{
+			display:block;
+		}
+		/* 鼠标经过时子菜单的样式*/
+		#slidemenu li dd a:hover{
+			background:#147;
+			color:#9cf;
+		}
+	  </style>
+   </head>
+
+   <body>
+    <div id="hmenu" class="" style="">
+		<ul id="">
+		  <li><a href=""><b>修身</b></a></li>
+		  <li><a href=""><b>齐家</b></a></li>
+		  <li><a href=""><b>功业</b></a></li>
+		  <li><a href=""><b>畅想</b></a></li>
+		</ul>
+	</div><!-- hmenu滑动门 -->
+	<br/>
+    <div id="menu">
+		<ul>
+		   <li><a href="#"><b> 修身 </b></a> </li>
+		   <li><a href="#"><b> 齐家 </b></a></li>
+		   <li><a href="#"><b> 功业 </b></a></li>
+		   <li class="current"><a href="#"><b> 畅想未来 </b></a></li>
+		</ul>
+    </div><!-- menu 双层滑动门 -->
+	<br/>
+    <div id="menu1">
+		<ul>
+		   <li><a href="#"><b> 修身 </b></a> </li>
+		   <li><a href="#"><b> 齐家 </b></a></li>
+		   <li><a href="#"><b> 功业 </b></a></li>
+		   <li><a href="#"><b> 畅想未来 </b></a></li>
+		</ul>
+    </div><!-- menu1 跳起来的菜单 -->
+	<div id="" class="info">下拉菜单</div>
+	<ul id="slidemenu">
+	  <li>
+		<dl>
+			<dt><a href="#">修身</a></dt>
+			<dd><a href="#">编程能力</a></dd>
+			<dd><a href="#">英语水平</a></dd>
+			<dd class="last"><a href="#">专业素养</a></dd>
+		</dl>
+	  </li>
+	  <li>
+	  	<dl>
+			<dt><a href="#">齐家</a></dt>
+			<dd><a href="#">家庭现状</a></dd>
+			<dd><a href="#">未来生活</a></dd>
+		</dl>
+	  </li>
+	  <li>
+		<dl>
+			<dt><a href="#">功业</a></dt>
+			<dd><a href="#">工作状况</a></dd>
+			<dd><a href="#">三年计划</a></dd>
+			<dd><a href="#">五年计划</a></dd>
+			<dd><a href="#">十年计划</a></dd>
+			<dd><a href="#">第二个十年计划</a></dd>
+		</dl>		
+	  </li>
+	  <li>
+		<dl>
+			<dt><a href="#">畅想</a></dt>
+			<dd><a href="#">人生畅想</a></dd>
+		</dl>		
+	  </li>
+	</ul><!-- #slidemenu下拉菜单 -->
+   </body>
+</html>

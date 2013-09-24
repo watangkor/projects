@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <title> kevin document</title>
+	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <meta name="Author" content="kevin">
+      <link rel="stylesheet" href="">
+      <script src="../../static/js/jquery-1.6.2.js" type="text/javascript"></script>  
+	  <script language="javascript">
+	      $(function(){
+			//alert(1);
+			$("#backtop").click(function(){
+				alert(1);
+			});
+	      })
+	  </script>
+	  <style type="text/css">
+		body{
+			background:#4B5A39;
+			color:white;
+			margin:0;
+			padding:0;
+			overflow-x:hidden;
+		}
+		h3{
+			text-align:center;
+		}
+		h4{
+			color:#B6D178;
+		}
+		#abouthtml{
+			/* background:#EAF2FE;*/
+			position:absolute;
+			left:0;
+			width:50%;
+		}
+		#aboutcss{
+			/* background:#eee;*/
+			position:absolute;
+			left:51%;
+			width:49%;
+		}
+		ul{
+			color:white;
+		}
+		p{
+			text-indent:2em;
+		}
+		#gotop{
+			position:fixed;
+			right:10px;
+			bottom:20px;
+			width:47px;
+			height:47px;
+			background:url('../../static/img/btn/gotop.png');
+		}
+		#gotop:hover{
+			background-position:0 73px; /* 原图和hover图都在同一张图上，但是通过background-position的值来改变*/
+		}
+		.center{
+			background:#eee;
+			height: 35px;
+			line-height:35px;
+		}
+		 .greenBorder {border: 1px solid green;} /* just borders to see it */
+		 /*5 文本垂直居中的解决方案 */
+		 #outer {height: 200px; overflow: hidden; position: relative;}
+		 #outer[id] {display: table; /* position: static;*/}
+		 /*#middle {position: absolute; top: 50%;} for quirk explorer only*/
+		 #middle[id] {display: table-cell; vertical-align: middle; /*width: 100%;  position: static;*/}
+		 /* #inner {position: relative; top: -50%} for quirk explorer only */
+		 /*5 文本垂直居中的解决方案 */
+	  </style>
+   </head>
+
+   <body>
+	<h3>html的一些基本常识</h3>
+   <div id="abouthtml" class="" style="">
+	<h4>1. xhtml是html的演进：为了达到标准的统一（xhtml的要求）</h4>
+	<ul id="">
+	  <li>元素属性都小写</li>
+	  <li>严格嵌套</li>
+	  <li>元素封闭</li>
+	  <li>属性值要用双引号，并用完整形式
+		<span class="">例：<input disabled="true" value="input disabled='true'"> </span>
+	  </li>
+	  <li>内容标记放在结构标记里面</li>
+	</ul>
+   </div><!-- #abouthtml -->
+   <div id="aboutcss" class="" style="">
+	  <h4>1. css文件导入式和链接式有什么区别</h4>
+	  <ul id="">
+	    <li>链接式使用<b>html</b>标记引入："<"link href='' rel='stylesheet' type='text/css'">", 在装载页面主体部分之前装载css文件，显示出的页面一开始就带有样式效果的。</li>
+	    <li>导入式全用<b>css</b>规则引入:@import "*.css",页面装完成后再加载cssy文件，先显示无样式页面，闪烁后才会设置样式</li>
+	    <li>注：一个css文件，用链接式;多个链接一个css目录文件，里面再导入多个css文件;?js动态引入，需要用链接式</li>
+	  </ul>
+	  <h4>2. 层叠样式优先级规则：行内>ID样式>类别样式>标记样式，此区别于继承</h4>
+	  <h4>3. 常规流</h4>
+	  <p class="">不使用其他的与排列和定位相关的特殊CSS规则时，各种元素的排列规则 </p>
+	  <h4>4. 盒子的浮动与定位</h4>
+	  <p class="">float 浮动元素将"脱离标准流",不确定的说法，因为对其它的盒子仍有影响，只是它自身会左右浮动，即其它元素环绕在其周围</p>
+	  <ul id="">
+	    <li>定位：relative,相对标准流进行偏移，可以与float合用,定位浮动元素的偏移</li>
+	    <li>absolute:相对于最近的已经定位的祖先元素进行定位，无:对浏览器。若没设置偏移，将仍在原位置</li>
+	    <li></li>
+	  </ul>
+	  <h4 class="center">5. 文本的垂直居中:一行，line-height与height相同即可</h4>
+	  <p class=""></p>
+	  <div class="greenBorder" id="outer" >
+		<div id="middle" >#middle <a href="http://www.jakpsatweb.cz/css/css-vertical-center-solution.html">多行文本的垂直居中解决方案</a>
+		  <div id="inner" class="greenBorder">
+		  实现如下目标：1. div高度固定;2. 需要居中的内容高度不固定，如动态产生;3. 不使用表格。样式如下：<br/>
+			#outer {height: 200px; overflow: hidden; position: relative;}<br/>
+			#outer[id] {display: table; }<br/>
+			#middle[id] {display: table-cell; vertical-align: middle;}
+		  </div>
+		</div>
+     </div>
+	 <h4>6. </h4>
+   </div><!-- #aboutcss -->
+
+
+   <div id="gotop" class="" style="">
+	  <!-- 这里处理回到顶部，沿未处理 -->
+   </div><!-- #backtop -->
+   </body>
+</html>

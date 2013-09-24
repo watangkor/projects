@@ -1,0 +1,17 @@
+{
+	"sProcessing": "Bitte warten...",
+	"sLengthMenu": "每页显示_MENU_记录",
+	"sZeroRecords": "抱歉， 没有找到",
+	"sInfo": "共_TOTAL_条数据",
+	"sInfoEmpty": "没有数据",
+	"sInfoFiltered": "(从_MAX_个数据中检索)",
+	"sInfoPostFix": "",
+	"sSearch": "全列查找:",
+	"sUrl": "",
+	"oPaginate": {
+		"sFirst":    "首页",
+		"sPrevious": "前一页",
+		"sNext":     "后一页",
+		"sLast":     "尾页"
+	}
+}

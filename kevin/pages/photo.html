@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery 浮云相册、相册展示插件</title>
+
+<meta name="keywords" content="jQuery 浮云相册插件/相册展示,js浮云相册插件/相册展示,jQuery Clouds Albums Plus" />
+<meta name="description" content="jQuery 浮云相册插件/相册展示,js浮云相册插件/相册展示,jQuery Clouds Albums Plus" />
+<meta name="Language" content="zh-CN" />
+<meta name="Copyright" content="julying.com" />
+<meta name="Designer" content="julying.com" />
+<meta name="Publisher" content="王子墨,前端攻城师" />
+<meta name="Distribution" content="Global" />
+<meta name="author"  content="王子墨,前端攻城师" />
+<meta name="robots" content="index,follow" />
+<meta name="googlebot" content="index,follow,archive" />
+
+<link href="../static/img/photo/main.css" rel="stylesheet" media="screen" />
+<script type="text/javascript" src="../static/js/jQuery.js"></script>
+<script type="text/javascript" src="../static/js/jquery.clouds.albums.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#listSingle li , #listBig li,#listSmall li').synchroMove({speed:'slow',complete:completeDo}) ;
+});
+</script>
+
+<script type="text/javascript" src="../static/js/highslide/highslide.js"></script>
+<link rel="stylesheet" type="text/css" href="../static/js/highslide/highslide.css" />
+<script type="text/javascript">
+hs.graphicsDir = '../static/js/highslide/graphics/';
+hs.wrapperClassName = 'wide-border';
+hs.fadeInOut = true;
+function completeDo(){
+	$('#listSingle a , #listBig a,#listSmall a').click(function(){
+		hs.expand(this);
+		return false;
+	});
+};
+
+</script>
+
+</head>
+<body>
+<!-- <div class="hide"><div class="example"></div><div class="code"></div></div> -->
+<!-- <div class="pos">
+	<div id="top" class="top">
+    	<div class="logo"><a href="http://julying.com" target="_blank" class="png">julying.com</a></div>
+    </div>
+</div>-->
+<div class="pos"> 
+
+	<div class="contents">
+   <h1 class="png">&nbsp;&nbsp;&nbsp; 玉洁情侣照哦！ <span>(。。。)</span></h1>
+        <div class="content">
+        	<div id="listSingle" class="listImg listSingle">
+                <h2><span class="png">玉女金童 还有更多哦。。。</span></h2>
+                <ul>
+                <li><a href="../static/photo/10.jpg"><img src="../static/photo/10.jpg" width="386" height="500" /></a></li>
+                <li><a href="../static/photo/2.jpg"><img src="../static/photo/2.jpg" width="492" height="627" /></a></li>
+                </ul>
+                <div class="clear"></div>
+            </div><!-- .listSingle -->
+            
+            <div id="listBig" class="listImg listBig">
+                <h2><span class="png">嘻哈嘻哈。。。</span></h2>                
+                <ul>
+                <li><a href="../static/photo/13.jpg"><img src="../static/photo/13.jpg" width="420" height="414" /></a></li>
+                <li><a href="../static/photo/15.jpg"><img src="../static/photo/15.jpg" width="480" height="300" /></a></li>
+                <li><a href="../static/photo/17.jpg"><img src="../static/photo/17.jpg" width="480" height="300" /></a></li>
+                <li><a href="../static/photo/19.jpg"><img src="../static/photo/19.jpg" width="400" height="300" /></a></li> 
+                <li><a href="../static/photo/21.jpg"><img src="../static/photo/21.jpg" width="450" height="347" /></a></li>
+                <li><a href="../static/photo/22.jpg"><img src="../static/photo/22.jpg" width="480" height="300" /></a></li>
+                <li><a href="../static/photo/24.jpg"><img src="../static/photo/24.jpg" width="480" height="300" /></a></li> 
+                <li><a href="../static/photo/25.jpg"><img src="../static/photo/25.jpg" width="450" height="328" /></a></li>
+                <li><a href="../static/photo/29.jpg"><img src="../static/photo/29.jpg" width="412" height="300" /></a></li>
+                <div class="clear"></div>
+                </ul>
+                
+            </div><!-- .listBig-->
+            
+            <div id="listSmall" class="listImg listSmall">
+                <h2><span class="png">黑色黑色。。。</span></h2>
+                <ul>
+                <li><a href="../static/photo/13.jpg"><img src="../static/photo/13.jpg" width="420" height="414" /></a></li>
+                <li><a href="../static/photo/14.jpg"><img src="../static/photo/14.jpg" width="412" height="300" /></a></li>
+                <li><a href="photo/3.jpg"><img src="photo/3.jpg" width="480" height="300" /></a></li>
+                <li><a href="photo/4.jpg"><img src="photo/4.jpg" width="400" height="300" /></a></li> 
+                <li><a href="photo/5.jpg"><img src="photo/5.jpg" alt="" width="450" height="347" /></a></li>                
+                <li><a href="photo/6.jpg"><img src="photo/6.jpg" width="480" height="300" /></a></li>
+                
+                <li><a href="photo/7.jpg"><img src="photo/7.jpg" width="480" height="300" /></a></li> 
+                <li><a href="photo/8.jpg"><img src="photo/8.jpg" width="463" height="300" /></a></li>
+                <li><a href="photo/9.jpg"><img src="photo/9.jpg" width="385" height="300" /></a></li>
+                <li><a href="photo/10.jpg"><img src="photo/10.jpg" width="480" height="300" /></a></li> 
+                <li><a href="photo/11.jpg"><img src="photo/11.jpg" width="468" height="300" /></a></li>                
+                <li><a href="photo/12.jpg"><img src="photo/12.jpg" width="480" height="300" /></a></li>
+                
+                <li><a href="photo/13.jpg"><img src="photo/13.jpg" width="381" height="250" /></a></li> 
+                <li><a href="photo/14.jpg"><img src="photo/14.jpg" width="480" height="300" /></a></li>
+                <li><a href="photo/15.jpg"><img src="photo/15.jpg" width="375" height="300" /></a></li>
+                <li><a href="photo/16.jpg"><img src="photo/16.jpg" width="480" height="300" /></a></li>
+                <li><a href="photo/17.jpg"><img src="photo/17.jpg" width="480" height="300" /></a></li>                
+                <li><a href="photo/6.jpg"><img src="photo/6.jpg" width="412" height="300" /></a></li>
+                
+                <li><a href="photo/5.jpg"><img src="photo/5.jpg" width="450" height="347" /></a></li>
+                <li><a href="photo/6.jpg"><img src="photo/6.jpg" width="412" height="300" /></a></li>
+                <li><a href="photo/7.jpg"><img src="photo/7.jpg" width="480" height="300" /></a></li> 
+                <li><a href="photo/8.jpg"><img src="photo/8.jpg" width="450" height="328" /></a></li>
+                <li><a href="photo/9.jpg"><img src="photo/9.jpg" width="385" height="300" /></a></li>
+                <li><a href="photo/10.jpg"><img src="photo/10.jpg" width="480" height="300" /></a></li>
+                <div class="clear"></div>
+                </ul>
+            </div><!-- .listSmall -->
+            
+            
+<!--             <div class="bottom">
+            	<div class="copyRight">
+                	<p>Copyright &copy; 2006 - <?php echo date('Y',time());?> <a href="http://Julying.Com" target="_blank">Julying.Com</a></p>
+                </div>
+                <h6 class="png"></h6>
+            </div><!-- .bottom --> -->
+        </div><!-- .content -->
+    </div><!-- .contents -->
+    <div class="sliderBar"></div><!-- .sliderBar -->
+    <div class="clear"></div>
+</div>
+
+<noscript>请允许脚本</noscript>
+
+
+<div style="display:none"><script src='http://pw.cnzz.com/c.php?id=80685900&l=2' language='JavaScript' charset='gb2312'></script></div>
+
+
+</body>
+</html>

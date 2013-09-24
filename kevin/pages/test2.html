@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <title> kevin document</title>
+	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <script src="../static/js/jquery-1.6.2.js" type="text/javascript"></script>
+      <meta name="Author" content="kevin">
+	  <script language="javascript">
+	      $(function(){
+			$("#seawall").change(function(){
+				if($(this).attr("checked")=="checked"){
+					$("#seawallbtn").prop("disabled",false);
+				}else {
+					$("#seawallbtn").prop("disabled",true);
+				}
+			});
+			//某个按钮的下拉板功能
+			 $("#choose").hover(function(){
+			 //取消定时器
+				if(timer2!=null){
+					clearInterval(timer2);
+				}
+				if(timer1!=null){
+					clearInterval(timer1);
+				}
+				if(padDivObject!=null){
+					padDivObject.remove();
+				}
+				//当前id,x,y
+				var x = $(this).offset().left-15;
+				var y = $(this).offset().top+25;
+				//展示下拉板
+				padDivObject=showObject(x,y);
+			},function(){
+			  //定时器1用于上滑
+				timer1 = setInterval(function(){
+					padDiv.slideUp();
+					if(timer1!=null){
+					clearInterval(timer1);
+				}
+					if(timer2!=null){
+					clearInterval(timer2);
+				}
+				},300);
+			});
+
+
+			$("#choose").hover(function(){
+			   $("#showPad").show();
+			});
+			$(".choose").click(function(){
+				alert($(this).val());
+			});
+	      });
+var timer1 = null
+var timer2 = null;
+var padDivObject = null;
+var padDiv;
+function showObject(left,top){
+	var html = '<div id="showPad" class="" style="">'+
+				'<input type="button" class="choose" id="" value="实时方案计算" >'+
+				'<input type="button" class="choose" id="" value="历史方案计算" >'+
+				'<input type="button" class="choose" id="" value="设计方案计算" >'+
+				'</div>';
+	//把要加入的内容转换成jquery对象，并加入到body内，下滑
+	padDiv = $(html);
+	padDiv.appendTo($("body")).css({
+		"top":top,
+		"left":left
+	}).slideDown();
+	//鼠标移入事件（）
+	padDiv.hover(function(){
+	//解除上滑下滑事件
+		clearInterval(timer1);
+		clearInterval(timer2);
+	},function(){
+	//移出，上滑，并解除该事件
+		timer2 = setInterval(function(){
+			padDiv.slideUp();
+			clearInterval(timer2);
+		},300);
+	});
+	//注册相关按钮事件
+	return padDiv;
+}
+	  </script>
+      <link rel="stylesheet" href="">
+	  <style type="text/css">
+		#choose{
+
+		}
+		.choose{
+			cursor:pointer;
+		}
+		.choose:hover{
+			color:blue;
+		}
+		#showPad{
+			border:1px solid green;
+			width:200px;
+			height:200px;
+			display:none;
+			background:#eee;
+			position:absolute;
+		}
+	  </style>
+   </head>
+
+   <body>
+<input type="checkbox" id="seawall" value="" ><span class="">模拟海堤漫溢或溃决</span><input type="button" id="seawallbtn" value="test" disabled>
+<input type="button" id="choose" value="实时方案" >
+   </body>
+</html>

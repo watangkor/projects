@@ -1,0 +1,471 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <title>charts</title>
+	  <!-- js导入的顺序也很重要呀，先有jquery，后higncharts才有用呀！郁闷这个问题，弄了了下行了。 -->
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	  <script src="../static/js/highcharts.js"></script>
+	  <script src="../static/js/Hllinc-JSF.js"></script>
+	  <script src="../static/js/exporting.js"></script>
+    <link href="../lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" />
+    <link href="../lib/ligerUI/skins/ligerui-icons.css" rel="stylesheet" type="text/css" />
+    <script src="../lib/jquery/jquery-1.3.2.min.js" type="text/javascript"></script>
+    <script src="../lib/ligerUI/js/core/base.js" type="text/javascript"></script>
+    <script src="../lib/ligerUI/js/plugins/ligerDrag.js" type="text/javascript"></script>
+    <script src="../lib/ligerUI/js/plugins/ligerDialog.js" type="text/javascript"></script>
+    <script src="../lib/ligerUI/js/plugins/ligerResizable.js" type="text/javascript"></script>
+	  <style type="text/css">
+		body{
+			margin:0;
+			background:#EAF2FE;
+			font-size:14px;
+			/* overflow-x:hidden;;*/
+		}
+		#pie{
+			border:1px solid black;
+		}
+	  </style>
+		<script type="text/javascript">
+var chart = null;
+var sixtydata=[
+//[1344355200000,0.5],[1344358800000,0],[1344362400000,0],[1344366000000,1.5],[1344369600000,1],[1344373200000,1],[1344376800000,4],[1344380400000,14],
+[1344384000000,3.5],[1344387600000,2],[1344391200000,2.5],[1344394800000,1.5],[1344398400000,3.5],[1344402000000,6.5],
+		[1344405600000,6.5],[1344409200000,11],[1344412800000,7],[1344416400000,3.5],[1344420000000,2],[1344423600000,1.5],[1344427200000,3.5],
+		[1344430800000,3],[1344434400000,1.5],[1344438000000,0.5],[1344441600000,0],[1344445200000,0],[1344448800000,0.5],[1344452400000,0],
+		[1344456000000,0],[1344459600000,0],[1344463200000,0],[1344466800000,0]];
+		//,[1344470400000,0],[1344474000000,0]
+//[1344380400000,2.0],
+var fifteendata = [[1344381300000,1.0],[1344382200000,0.5],[1344383100000,1.0],[1344384000000,0.5],[1344384900000,1.5],[1344385800000,0.5],[1344386700000,0.0],[1344387600000,0.5],[1344388500000,0.5],[1344389400000,0.5],[1344390300000,0.5],[1344391200000,1.0],[1344392100000,0.5],[1344393000000,0.5],[1344393900000,0.5],[1344394800000,0.0],[1344395700000,0.5],[1344396600000,0.0],[1344397500000,1.0],[1344398400000,1.5],[1344399300000,2.0],[1344400200000,2.5],[1344401100000,1.0],[1344402000000,1.5],[1344402900000,1.0],[1344403800000,1.0],[1344404700000,1.0],[1344405600000,2.5],[1344406500000,2.5],[1344407400000,2.5],[1344408300000,4.0],[1344409200000,1.5],[1344410100000,3.0],[1344411000000,1.5],[1344411900000,0.5],[1344412800000,3.0],[1344413700000,1.0],[1344414600000,1.0],[1344415500000,1.0],[1344416400000,1.0],[1344417300000,0.5],[1344418200000,0.5],[1344419100000,0.0],[1344420000000,0.5],[1344420900000,0.5],[1344421800000,0.5],[1344422700000,0.5],[1344423600000,0.5],[1344424500000,1.0],[1344425400000,1.5],[1344426300000,0.5],[1344427200000,0.0],[1344428100000,1.5],[1344429000000,0.5],[1344429900000,0.5],[1344430800000,1.0],[1344431700000,0.0],[1344432600000,0.5],[1344433500000,0.5],[1344434400000,0.5],[1344435300000,0.5],[1344436200000,0.0],[1344437100000,0.0],[1344438000000,0.0],[1344438900000,0.0],[1344439800000,0.0],[1344440700000,0.0],[1344441600000,0.0],[1344442500000,0.0],[1344443400000,0.0],[1344444300000,0.0],[1344445200000,0.0],[1344446100000,0.0],[1344447000000,0.5],[1344447900000,0.0],[1344448800000,0.0],[1344449700000,0.0],[1344450600000,0.0],[1344451500000,0.0],[1344452400000,0.0],[1344453300000,0.0],[1344454200000,0.0],[1344455100000,0.0],[1344456000000,0.0],[1344456900000,0.0],[1344457800000,0.0],[1344458700000,0.0],[1344459600000,0.0],[1344460500000,0.0],[1344461400000,0.0],[1344462300000,0.0],[1344463200000,0.0],[1344464100000,0.0],[1344465000000,0.0],[1344465900000,0.0],[1344466800000,0.0]];
+
+var basedata = sixtydata;
+//displayColumn 的相关属性
+var tickInterval = 2;
+var dataLabelsEnabled = false;
+$(function () {
+    //var chart;
+	//displayPie();
+	displayColumn();
+	$("#bigger").click(function(){
+		$("#container").css("width","1170px");
+		displayColumn();
+     	targetDialog=	$.ligerDialog.open({
+			target: $("#container"),
+			title:'15间隔放大图',
+			height: 400,
+			width: 1200,
+			allowClose: true, //允许关闭
+			isHidden:false, //销毁文档
+			isResize: true
+		});
+	});
+	$("#changeWidth").click(function(){
+		var changeWidth = $("#container").css("width");
+		//console.info("info:"+$("#container").scrollLeft());
+		changeWidth = (changeWidth.split("p")[0])*1.5;
+		$("#container").css({width:(changeWidth),background:'#eee'});
+		displayColumn();
+	});
+	$("#back").click(function () {
+		$("#container").css({width:800,background:'#eee',height:320});
+//		displayColumn();
+		chart.redraw();
+	});
+	//用于切换charts,的数据粒度（15分钟、30分钟、60分钟）
+	$("#switch").change(function(){
+	alert(1);
+		var sval = $(this).val();
+console.info("信息:"+sval+"---"+(new Date()).getTime());
+alert(2);
+		var divwidth = $("#container").css("width");
+		var realwidth = divwidth.split("px")[0]-50;
+		var num = realwidth/32;
+		//根数据的分钟数分别进行处理
+		if(sval==15){
+			basedata = fifteendata;
+			var interval = parseInt(basedata.length/(4*num));
+			tickInterval =(interval+1)*4;
+			if((realwidth/basedata.length)>20){
+				dataLabelsEnabled = true;
+			}else{
+				dataLabelsEnabled = false;
+			}
+			//tickInterval = 4;
+			displayColumn();
+		}else if(sval==30) {
+			console.info("here:"+sval);
+		}else if(sval==60){
+		
+
+			//tickInterval = 2;
+			basedata = sixtydata;
+		var interval = parseInt(basedata.length/num);
+		tickInterval = interval+1;
+			dataLabelsEnabled = true;
+			//displayColumn();
+			chart.redraw();
+		}
+	});
+});
+function displayPie() {
+    new Highcharts.Chart({
+	chart: {
+		renderTo: 'pie',
+		plotBackgroundColor: null,
+		plotBorderWidth: null,
+		plotShadow: false
+	},
+	title: {
+		text: '饼图'
+	},
+	tooltip: {
+		//pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+		formatter:function() {
+			return '<b>'+this.point.name.split(' ')[0]+"</b>季降雨量:"+this.point.name.split(' ')[1]+" mm";
+		},
+		percentageDecimals: 1
+	},
+	plotOptions: {
+		pie: {
+			allowPointSelect: true,
+			cursor: 'pointer',
+			dataLabels: {
+				enabled: true,
+				color: '#000000',
+				connectorColor: '#000000',
+				formatter: function() {
+					return ''+ this.point.name.split(' ')[0] +': '+ this.percentage +' %';
+				}
+			}
+		}
+	},
+	series: [{
+		type: 'column',
+		name: '2012年降雨量',
+		data: [
+			['春 100',   25.0],
+			['夏 200',   61.0],
+			{
+				name: '秋 300',
+				y: 6,
+				sliced: true,
+				selected: true
+			},
+			['冬 400',   8]
+		]
+	}]
+});
+}
+function displayColumn() {
+console.info("............start");
+Highcharts.setOptions({
+	lang:{
+		exportButtonTitle: '导出图表',
+		printButtonTitle: '打印图表',
+		downloadPNG:'下载png图片',
+		downloadJPEG:'下载jpeg图片',
+		downloadSVG:'下载矢量图片',
+		downloadPDF:'下载PDF文件'
+	}
+});
+Highcharts.theme = {
+   //colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
+   colors: ['#408BF1', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
+   chart: {
+      backgroundColor: {
+         linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+         stops: [
+            [0, 'rgb(255, 255, 255)'],
+            [1, 'rgb(240, 240, 255)']
+         ]
+      },
+      borderWidth: 2,
+      plotBackgroundColor: 'rgba(255, 255, 255, .9)',
+      plotShadow: true,
+      plotBorderWidth: 1
+   },
+   title: {
+      style: {
+         color: '#000',
+         font: 'bold 16px "Trebuchet MS", Verdana, sans-serif'
+      }
+   },
+   subtitle: {
+      style: {
+         color: '#666666',
+         font: 'bold 12px "Trebuchet MS", Verdana, sans-serif'
+      }
+   },
+   xAxis: {
+      //gridLineWidth: 1,
+      lineColor: '#000',
+      tickColor: '#000',
+	  tickPosition:"outside",//x轴上的刻度线上的标记在下，这里暂时不用
+      tickLength:0,          //刻度线标记的长度
+	  tickWidth:4,           //刻度线标记的宽度
+	  tickColor:"green",	   //颜色
+      labels: {
+         style: {
+            color: '#000',
+            font: '11px Trebuchet MS, Verdana, sans-serif'
+         }
+      },
+      title: {
+         style: {
+            color: '#333',
+            fontWeight: 'bold',
+            fontSize: '12px',
+            fontFamily: 'Trebuchet MS, Verdana, sans-serif'
+
+         }
+      }
+   },
+   yAxis: {
+      //minorTickInterval: 'auto',
+      lineColor: '#000',
+      lineWidth: 1,
+     // tickWidth: 1,
+      tickColor: '#000',
+      labels: { //y轴数值的样式
+         style: {
+            color: '#000',
+            font: '11px Trebuchet MS, Verdana, sans-serif'
+         }
+      },
+      title: {
+         style: {
+            color: '#333',
+            fontWeight: 'bold',
+            fontSize: '12px',
+            fontFamily: 'Trebuchet MS, Verdana, sans-serif'
+         }
+      }
+   },
+   legend: {
+      itemStyle: {
+         font: '9pt Trebuchet MS, Verdana, sans-serif',
+         color: 'black'
+
+      },
+      itemHoverStyle: {
+         color: '#039'
+      },
+      itemHiddenStyle: {
+         color: 'gray'
+      },
+	  backgroundColor: '#FFFFFF',
+	  layout: 'vertical',
+	  align: 'left',   //定义位置，左上角，xy再相对左上角定位
+	  verticalAlign: 'top',
+	  x: 50,
+	  y: 0,
+	  floating: true,//浮动，不然会占地方
+	  shadow: true   //下面有些许阴影
+   },
+   	//作者的基本信息
+   credits:{
+		enabled:false,
+		text:"Kevin's chart",
+   },
+   labels: {
+      style: {
+         color: '#99b'
+      }
+   },
+
+   navigation: {
+      buttonOptions: {
+         theme: {
+            stroke: '#CCCCCC'
+         }
+      }
+   }
+};
+
+// Apply the theme
+var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+//动态修改series参数
+	$("#test").toggle(function(){
+		chart.series[0].data[4].update({"selected":true,"color":"#D0D0D0"});
+		chart.redraw();
+	},function(){
+		chart.series[0].data[4].update({"selected":true,"color":"red"});
+	});
+	var data=[];
+	var categories = [];
+	var temp ;
+	console.info("00000000000000:"+(new Date()).getTime());
+	for (var i=0; i<basedata.length; i++) {
+		/* if(i==4){
+			temp = new Date(basedata[i][0]).format("dd日");
+			categories.push(new Date(basedata[i][0]).format("dd日<br/>hh:mm"));
+		}else if(temp==new Date(basedata[i][0]).format("dd日")){
+			categories.push(new Date(basedata[i][0]).format("<br/>hh:mm"));
+		}else{
+			categories.push(new Date(basedata[i][0]).format("dd日<br/>hh:mm"));
+			temp = new Date(basedata[i][0]).format("dd日");
+		}*/
+		categories.push(new Date(basedata[i][0]).format("dd日<br/>hh:mm"));
+		data.push(basedata[i][1]);
+	}
+	console.info("1111111111111:"+(new Date()).getTime());
+	//处理categories
+	for(var i=0;i*tickInterval<categories.length;i++){
+		var interval = i*tickInterval;
+		if(i==0){
+			temp = categories[0].split("日")[0];
+		}else{
+			if(categories[i*tickInterval].split("日")[0]==temp){
+				categories[interval] = categories[interval].split("日")[1];
+			}else{
+				temp = categories[i*tickInterval].split("日")[0];
+			}
+
+		}
+	}
+	console.info("2222222222222:"+(new Date()).getTime());
+	chart = new Highcharts.Chart({
+		chart: {
+			renderTo: 'container',
+			type: 'column',
+			zoomType:'x'
+		},
+		title: {
+			text: '高桥 2012年8月8日降雨量'
+		},
+		subtitle: {
+			text: ''
+		},
+		xAxis: {
+			categories:categories,
+			//改变x轴上值的间隔,两个意思等同
+			tickInterval:tickInterval, //x轴显示值间隔
+			title:{
+				text:''
+			},
+		},
+		yAxis: {
+			min: 0,
+			title: {
+				text: '降雨量 (mm)'
+			},
+			/*可用于平均线
+			plotLines: [{ // summer months - treat from/to as numbers
+                color: '#FF0000',
+                width: 2,
+                value: 5.5,
+                id: 'plotline-1',
+				label:{
+					text:'平均'
+				},
+
+            }],*/
+		},
+		legend: {
+			enabled:false //图例是否显示
+
+		},
+		tooltip: {
+			enabled:true,
+			formatter: function() {
+				//原始：return ''+this.x+': '+ this.y +' mm';
+				return ''+(this.x.split("<br/>")[0])+(this.x.split("<br/>")[1])
+					+': '+ this.y +' mm';
+			}
+		},
+		plotOptions: {
+			column: {
+				pointPadding: 0,
+				pointStart:0,
+				//pointWidth:20,
+				borderWidth: 0,
+				dataLabels: {   //用于显示柱内数据值
+					enabled: dataLabelsEnabled,
+					color: "#4572A7",
+					style: {
+						fontWeight: 'bold'
+					},
+					//y:20 //上下偏移
+					formatter: function() {
+						if(this.y!=0){
+							return this.y;
+						}
+					}
+				}
+
+			}
+		},
+		series: [{
+			name: '高桥',
+			data:data
+		}]
+	});
+}
+		</script>
+<style type="text/css">
+	#test{
+		position:relative;
+		z-index:99;
+	}
+	#test:hover{
+		color:blue;
+		cursor:pointer;
+	}
+	#container{
+		height: 350px;
+		width:400px;
+		margin: 0 auto;
+		overflow-x:auto;
+	}
+	#pie{
+		width: 700px;
+		height: 400px;
+		margin: 0 auto;
+		background:#eee;
+	}
+	input{
+		margin:2px;
+	}
+	#parent{
+		overflow-x:auto;
+		width:800px;
+	}
+	#left{
+		position:absolute;
+		width:150px;
+		background:#C8D6E4;
+		height:100%;
+	}
+	#middle{
+		position:absolute;
+		left:153px;
+		background:#EAF2FE;
+		height:100%;
+	}
+</style>
+	</head>
+	<body>
+<div id="left" class="" style="">
+<h3>左侧栏</h3>
+	<input type="button" id="test" value="修改柱子颜色" />
+	<input type="button" id="bigger" value="chart放大" />
+	<input type="button" id="changeWidth" value="改变宽度" />
+	<input type="button" id="back" value="返回" />
+	<select id="switch">
+		<option value="0">0</option>
+		<option value="15">15</option>
+		<option value="30">30</option>
+		<option value="60">60</option>
+	</select>分钟
+</div><!-- #left-->
+<div id="middle" class="" style="">
+	<h3><span class="">charts</span></h3>
+	<div id="parent">
+		<div id="container">
+		</div>
+	</div>
+</div><!-- #middle-->
+<!-- <div id="pie">chart</div>-->
+	</body>
+</html>
+

@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <title>charts</title>
+	  <!-- js导入的顺序也很重要呀，先有jquery，后higncharts才有用呀！郁闷这个问题，弄了了下行了。 -->
+	  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
+	  <script src="../static/js/highstock.src.js"></script>
+	  <script src="../static/js/Hllinc-JSF.js"></script>
+	  <style type="text/css">
+		body{
+     		height:100%;
+ 			margin:0;
+			padding:0;
+		}	
+	  </style>
+		<script type="text/javascript">
+var minInterval = 60;
+var data = [];
+$(function () {
+	for(var i=0;i<600;i++){
+		var arr = [];
+		var time = new Date(2012,10,5);
+		time.setMinutes(i*5);
+		arr.push(time.getTime());
+		arr.push(RandomFrom(5,10));
+		data.push(arr);
+	}
+    drawStock();
+	$("#test").click(function(){
+		drawStock();
+	});
+	$("#minInterval").change(function(){
+		minInterval = $(this).val();
+		drawStock();
+	});
+});
+var chart;
+function displayPie() {
+    new Highcharts.Chart({
+	chart: {
+		renderTo: 'container',
+		plotBackgroundColor: null,
+		plotBorderWidth: null,
+		plotShadow: false
+	},
+	title: {
+		text: '饼图'
+	},
+	tooltip: {
+		//pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+		formatter:function() {
+			return '<b>'+this.point.name.split(' ')[0]+"</b>季降雨量:"+this.point.name.split(' ')[1]+" mm";
+		},
+		percentageDecimals: 1
+	},
+	plotOptions: {
+		pie: {
+			allowPointSelect: true,
+			cursor: 'pointer',
+			dataLabels: {
+				enabled: true,
+				color: '#000000',
+				connectorColor: '#000000',
+				formatter: function() {
+					return ''+ this.point.name.split(' ')[0] +': '+ this.percentage +' %';
+				}
+			}
+		}
+	},
+	series: [{
+		type: 'pie',
+		name: '2012年降雨量',
+		data: [
+			['上旬 ',   61.0],
+			{
+				name: '中旬 300',
+				y: 6,
+				sliced: true,
+				selected: true
+			},
+			['下旬 400',   8]
+		]
+	}]
+});
+}
+
+function drawStock(){
+	// create the chart
+	chart = new Highcharts.StockChart({
+		chart: {
+			renderTo: 'container',
+			alignTicks: false,
+			spacingLeft : 25,
+			spacingRight : 25,
+			spacingBottom:25,
+			spacingTop : 15
+		},
+
+		rangeSelector: {
+			enabled:false
+			//selected: 0
+		},
+		scrollbar:{   //bar：显示数据，track：未显示数据部分
+			barBackgroundColor:'red', //下面固定条：显示数据部分背景色
+			buttonBackgroundColor :'green',//条两头的按钮
+			//buttonBorderWidth:20,
+			//height:40,
+			//barBorderWidth:40,
+			//trackBorderWidth:60,
+			rifleColor:'yellow',
+			trackBackgroundColor:'#666',   //下面固定，未显示数据部分背景色
+			trackBorderColor:'red'      //固定条边框的颜色
+
+		},
+		navigation:{
+			height:100,
+			backgroundColor:'black',
+			buttonOptions:{
+				borderColor:'red'
+			}
+		},
+		title: {
+			text: ' ',
+			margin:0
+		},
+		legend:{  //图例
+			enabled:true,  //图例打开
+			floating:true,
+			align:'right',
+			verticalAlign:'top',
+			y:-15//("-"+$(this).height())//向上为负，向下为正,可以相对于vertcal的位置再进行调试高度
+		},
+		rangeSelector:{//缩放按钮
+			buttons:[{
+						type: 'month',
+						count: 1,
+						text: '1m'
+					}, {
+						type: 'month',
+						count: 3,
+						text: '3m'
+					}, {
+						type: 'month',
+						count: 6,
+						text: '6m'
+					}, {
+						type: 'ytd',
+						text: 'YTD'
+					}, {
+						type: 'year',
+						count: 1,
+						text: '1y'
+					}, {
+						type: 'all',
+						text: 'All'
+					}],
+			buttonTheme:{
+				width:35,
+				height:16,
+				margin:40,
+				padding:2,
+				r:5,
+				zIndex:0
+			}
+		},
+		xAxis:{
+			//startOnTick:true,
+			//tickInterval:3600000*2   //刻度值的间隔，此为两小时
+			//maxPadding:3600000*3,
+			range: 100*3600*1000 //默认显示的时间长度，此为24小时
+		},
+		yAxis:{
+			title:{
+				margin:60
+			}
+		},
+		plotOptions:{
+			column:{
+				cursor:'pointer',
+				point:{
+					events:{
+						click:function(){
+							displayPie();
+						}
+					}
+				},
+				dataGrouping:{
+					enabled:true,//打开数据分组
+					forced:true,  //强制分组,此为按照30分钟分组，hour暂不明白其义
+					units:[[
+						'minute',
+						[minInterval]
+					], [
+						'hour',
+						[1]
+					]]
+				}
+			},
+			pointInterval:1000*60*60
+		},
+		navigator:{
+			enabled:true,
+			series:{
+				dataGrouping:{
+					smoothed:true
+				},
+				shadow:false
+			}
+		},
+		series: [{
+			type: 'column',
+			name: '降雨量 mm',
+			data: data
+		}],
+		tooltip:{
+			formatter:function(){
+				var s = '<b>' + Highcharts.dateFormat('%Y-%m-%d %H:%M', this.x) + '</b>';
+				$.each(this.points, function(i, point) {
+				//这里存在浏览器兼容问题
+					s += "<div style='color:#" + this.series.color + ";'>" + this.series.name.split(" ")[0] + "： " +formatFloat(point.y,1) + " " + this.series.name.split(" ")[1] + "</div>";
+				});
+				return s;
+			},
+			xAxis:{
+				//maxZoom:1*3600000
+				//tickPosition:'outside'//坐标轴上的标记为向外
+			}
+			
+		}
+	
+	});
+}
+function RandomFrom(iFirstValue, iLastValue) {
+	var iChoces = Math.abs(iLastValue - iFirstValue) + 1;
+	return Math.floor(Math.random() * iChoces + iFirstValue);
+}
+		</script>
+	</head>
+<body>
+<div id="container" style="height:420px;"></div>
+<span style="position:absolute;z-index:99;top:0;">
+<input type="button" name="" id="test" value="测试" >
+<select id="minInterval"><option value="15">15</option><option value="30">30</option><option value="60" selected>60</option></select>分钟
+</span>
+<ul id="" style="background:#EAF2FE">
+	<li>数据分组时间统计的区间：14：00的数据时间区间[14:00~14:15)，按15分钟分组;14：30，时间区间[14:30~15:00),按30分钟分组</li>
+	<li></li>
+  <li></li>
+</ul>
+</body>
+</html>

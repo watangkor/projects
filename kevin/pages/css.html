@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <title>CSS效果</title>
+	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <script src="../static/js/jquery-1.6.2.js" type="text/javascript"></script>
+      <meta name="Author" content="kevin">
+      <link rel="stylesheet" href="">
+	  <script language="javascript">
+	      $(function(){
+			$("#shbtn").toggle(function(){
+				$(this).removeClass("show").addClass("hide");
+				$("#data").hide();
+				$("#gisdiv,#shbtn").css("right","0px");
+			},function(){
+				$(this).removeClass("hide").addClass("show");
+				$("#data").show();
+				$("#gisdiv,#shbtn").css("right","200px");
+			})
+	      })
+	  </script>
+	  <style type="text/css">
+	  body{
+		margin:0;
+		padding:0;
+		width:100%;
+		height:100%;
+		overflow-x:hidden;
+	  }
+		.flow{
+			text-overflow:ellipsis;/* text-overflow:有两个属性值clip和ellipsis*/
+			white-space:nowrap;
+			overflow:hidden;
+        }
+		#flow{
+			width:100px;
+			background:lightblue;
+		}
+		#first{
+			position:absolute;
+			left:0;
+			width:198px;
+			background:#DBEAF9;
+			height:100%;
+		}
+		#gisdiv{
+			position:absolute;  /* 绝对定位，定位在页面的某个位置，通过TRBL来设定*/
+ 			left:200px;         /* 定位距离左侧的距离*/
+			right:200px;
+			z-index:5;			/* 定位距离右侧的距离*/
+			background:green;
+			/* padding-right:200px;*/
+			height:100%;
+		}
+		#data{
+			position:absolute;
+			right:0;
+			z-index:99;
+			width:198px;
+			height:100%;
+			background:green;
+		}
+		#shbtn{
+			position:absolute;
+			z-index:999;
+			right:198px;
+			width:20px;
+			height:30px;
+			top:50%;
+		}
+		.show{
+			background:url('../static/img/btn/horshow.png') white;
+		}
+		.hide{
+			background:url('../static/img/btn/horhide.png') white;
+		}
+	  </style>
+   </head>
+
+   <body>
+<h4>1. 巧用text-flow属性,文本省略显示,并可通过title提示显示</h4>
+<div id="flow" class="flow" title="将内容控制在一定的长度之内">
+	将内容控制在一定的长度之内
+</div>
+<h4>2. 分栏布局：二栏，多栏都行，解决一直以来的布局问题</h4>
+<ul id="">
+  <li>position:absolute 进行绝对定位，可通过left、right设定盒到左右侧的距离</li>
+  <li>top设定离顶部的高度，上面会有点位</li>
+</ul>
+<div  class="" style="width:100%;height:100%;border:1px solid green;"></div>
+	<div id="shbtn" class="show" ></div>
+	<div id="first" class="" style="">左侧栏，为第一栏</div>
+	<div id="gisdiv" class="" style="">
+		<iframe name="" src="charts.html" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>
+	</div>
+	<div id="data" class="" style="">data</div>
+   </body>
+</html>

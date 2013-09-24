@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <title>test</title>
+      <meta name="Author" content="kevin">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <link rel="stylesheet" href="../static/js/jquery-ui-1.9m6/demos/demos.css"/>
+      <link rel="stylesheet" href="../static/js/jquery-ui-1.9m6/themes/base/jquery.ui.all.css"/>
+
+	  <style type="text/css">
+			/*固定了页面的宽度1024px*/
+	  		@import url("../static/css/usual.css");
+			#div1:first-letter{
+				font-size:30px;
+				font-weight:bold;
+			}
+			#div1{
+				border:solid blue 3px;
+			}
+			#div2{
+				font:20px arial;
+			}
+			#testA{text-decoration:none;}
+			#testA:link{color:#03c;}
+			#testA:visited{color:#666;}
+			#testA:hover{color:#f30;}
+			#testA:active{color:#c30;}
+	  </style>
+	  <script type="text/javascript" src="../static/js/jquery-1.6.2.js"></script>
+
+	  <script type="text/javascript">
+		//data={type:1;value:25},type为某类型，value为该类型下的某个值
+		function getImgData(basePath,data){
+			var value = data.value;
+			var str = "";
+			if(data.type==1){
+				if(value<=2.5){
+					str="blue";
+				}else if(value>2.5&&value<=8){
+					str="yellow";
+				}else if(value>8&&value<=15){
+					str="orange";
+				}else if(value>8&&value<=16){
+					str="red1";
+				}else if(value>16){
+					str="red2";
+				}
+			}else if(data.type==12){
+				if(value<=5){
+					str="blue";
+				}else if(value>5&&value<=15){
+					str="yellow";
+				}else if(value>15&&value<=30){
+					str="orange";
+				}else if(value>30&&value<=70){
+					str="red1";
+				}else if(value>70&&value<=140){
+					str="red2";
+				}else if(value>140){
+					str="red3";
+				}
+			}else if(data.type==24){
+				if(value<=10){
+					str="blue";
+				}else if(value>10&&value<=25){
+					str="yellow";
+				}else if(value>25&&value<=50){
+					str="orange";
+				}else if(value>50&&value<=100){
+					str="red1";
+				}else if(value>100&&value<=200){
+					str="red2";
+				}else if(value>200){
+					str="red3";
+				}
+			}
+			return "<img src='"+basePath+"/static/img/"+str+".png'/>&nbsp;&nbsp;";
+		}
+
+		/*将对象数据分类转换，按照某个类型转换
+		*data为类型的升、降序数据
+		*/
+		function groupData(data){
+			var flag = data[0].type; //设置第一个默认类型为标识
+			var arr = [];//存放排好后的data数据
+			var others = [];  //存放类型相同的数据
+			var record = {type:"",others:others} //记录一条类型相同的临时数据
+
+			for(var i = 0;i < data.length;i++){
+				//通过type来判断
+				if(flag == data[i].type){
+				//删除对象的type属性
+					delete data[i].type;
+					others.push(data[i]);
+				}else{
+				//一种类型数据添加到arr
+					arr.push({type:flag,others:others});
+					flag = data[i].type; 
+					others = [];
+					flag = data[i].type; 
+					others.push(data[i]);
+				}
+			}
+			arr.push({type:flag,others:others});
+			return arr;
+		}
+		$(function(){
+			var data =[{type:'tong',name:"tong1",hour:'1',params:'tong.0.1'},
+					   {type:'tong',name:"tong2",hour:'2',params:'tong.0.2'},
+					   {type:'duo',name:"duo1",hour:'1',params:'duo.0.1'},
+					   {type:'duo',name:"duo2",hour:'2',params:'duo.0.2'},
+						]
+			//console.info(groupData(data));
+			//console.info({type:'tong',name:"tong1",hour:'1',params:'tong.0.1'})
+			$("#submit").click(function(){
+				$("input")
+			});
+			//radio的选中事件,得到当前radio值
+			$("input[name='rainType']").click(function(){
+				//alert($(this).val());
+				$("#submit").prop("disabled",true);
+			});
+			$("input:checkbox").change(function(){
+				alert(1);
+			});
+			$("#enterBtn").click(function(){
+				alert("键盘enter的press事件");
+			});
+			$(document).keypress(function(e){
+				if(e.keyCode==13){
+					$("#enterBtn").click();
+				}
+			});
+			/**4.解除父元素的绑定事件
+			*只要解除父元素的绑定事件，子元素事件就不会受到影响
+			*
+			*/
+			$("#divClick").toggle(function(){
+				alert("1");	
+			},function(){
+				alert("2");	
+			}).unbind();
+
+		});
+	  </script>
+   </head>
+   <body>
+<div>
+	<input name="rainType" type="radio" checked value="1"/>
+	<input name="rainType" type="radio" value="2"/>
+	<input type="button" id="submit" value="submit" style="margin:10px;">
+	<div><input value="2"><input type="checkbox"/></div>
+	<div style="width:100px;height:100px;background:white;"><input type="checkbox"/></div>
+</div>
+<div style="border:1px solid green;height:100px;">
+	<h3>3.键盘的点击事件</h3>
+	<input type="submit" value="enter事件" id="enterBtn"/>
+</div>
+<div style="border:1px solid green;height:50px;">
+	<a href="http://www.baidu.com" target="_blank" id="testA">3.超链接</a>
+</div>
+<div style="border:1px solid green;">
+	<h4>4.解除父元素的绑定事件：div有点击事件，div内的select元素有自己事件（只要解除父元素的绑定事件，子元素事件就不会受到影响）</h4>
+	<div id="divClick" style="border:1px solid green;width:200px;height:50px;cursor:pointer;">
+		<select id="selectClick"><option  value="全开">全开</option><option value="全关">全关</option></select>
+	</div>
+</div>
+   </body>
+</html>
+
