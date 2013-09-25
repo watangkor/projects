@@ -10,6 +10,7 @@
 	  var timer1 = null;
 	  var timer2 = null;
 	  var padDivObject=null;
+	  var padDiv;
 	  var htmlstr;
 	      $(function(){
 				$("#valSlt").change(function(){
@@ -51,7 +52,7 @@
 					}
 					//当前id,x,y
 					var x = $(this).offset().left-15;
-					var y = $(this).offset().top+25;
+					var y = $(this).offset().top+33;
 					//可以不同的id,设置不同的html,callback;
 					var callback=null;
 
@@ -81,7 +82,7 @@
 					month2str +="<option value='"+i+"'>"+i+"</option>";
 				}
 				$("#month2").html(month2str);
-				var padDiv;
+				//var clickNum = 0;
 				$("#hover2").toggle(function(){
 					var x = $(this).offset().left-35;
 					var y = $(this).offset().top+35;
@@ -91,19 +92,41 @@
 						"top":y,
 						"left":x
 					}).slideDown();
+					//clickNum++;
 				},function(){
 					padDiv.slideUp();
 					$("#hover2").val($("#year2").val()+"年"+$("#month2").val()+"月");
+					//clickNum++;
 				});
 				$("#month2").change(function(){
 					padDiv.slideUp();
 					$("#hover2").val($("#year2").val()+"年"+$("#month2").val()+"月");
+					$("#hover2").click();
 				});
-				/* $("#hover2adddiv").focusout(function(){
-					$("#hover2").val($("#year2").val()+"年"+$("#month2").val()+"月");
-					$(this).slideUp();
+				//点击其它地方，hover2adddiv会向上滑动消失，但点击#hover2adddiv也会消失，有问题哦？？？？
+				/* $("body").not($("#hover2,#hover2adddiv")).click(function(){
+					//alert(clickNum);
+					if(clickNum%2==1){
+						padDiv.slideUp();
+						$("#hover2").click();
+					}
 				});*/
+				var arr = [[1344381300000,1.0],[1344382200000,0.5],[1344383100000,1.0]];
+				$("#arrbtn1").click(function(){
+					var narr = arr;
+					arr.unshift([1244381300000,1.0]);
+					removerepeat(narr);
+				});
+
 	      });
+		  function  removerepeat(arr){
+			if(arr[0][0]==arr[1][0]){
+				arr.shift();
+				removerepeat(arr);
+			}else{
+				return arr;
+			}
+		  }
 		  //鼠标移上事件，显示div的函数调用
 		    var padDiv;
 			function showObject(left,top,htmlstr,callback){
@@ -141,10 +164,7 @@
 			height: 30px;
 			border:1px solid black;
 			background: url('../static/img/highlight.png');
-			border-top-left-radius:8px;  /* 得到圆角*/
-			border-top-right-radius:8px;
-			border-bottom-left-radius:8px;
-			border-bottom-right-radius:8px;
+			border-radius:5px;  /* 得到圆角*/
 		}
 		#hover2{
 			position:relative;
@@ -155,10 +175,12 @@
 			border:1px solid blue;
 			width:190px;
 			height: 30px;
-			border-top-left-radius:4px;  /* 得到圆角*/
-			border-top-right-radius:4px;
-			border-bottom-left-radius:4px;
-			border-bottom-right-radius:4px;
+			border-radius:4px;  /* 得到圆角*/
+			position:absolute;
+			z-index:999;
+			top:396px;
+			left:160px;
+			display:none;
 		}
 		.year{
 			width:60px;
@@ -173,15 +195,21 @@
 		#hover2{
 			text-align:center;
 		}
-		#hover2adddiv{
-			display:none;
+		ul{
+			border:1px solid green;
+		}
+		.qa{
+			border:1px solid blue;
+			background:#DBEAF9;
+			margin:3px;
+			padding:3px;
 		}
 	  </style>
    </head>
 
    <body>
    <input type="button" id="test" value="test" >
-    <div id="" class="" style="">
+    <div id="" class="qa" style="">
 		<select id="valSlt">
 			<option value="0">全部</option>
 			<option value="100">百年一遇</option>
@@ -189,27 +217,37 @@
 			<option value="500">五百年一遇</option>
 		</select>
 	</div>
-	<div id="head" class="" style="width:200px;height:22px;">头部文件</div>
+	<div id="head" class="qa" style="width:200px;height:22px;">头部文件</div>
 	<h4>3. 设置radio的第一个为默认值，</h4>
 	<ul id="">
 	  <li>设置第一个$('input[name=update]').get(0).checked = true;</li>
 	  <li>adio的value = ‘val’的元素为当前选中项：$(’input[name=items][value='val']‘).attr(”checked”,”checked”);</li>
 	  <li>获取一组radio被选中项的值：var item = $(’input[name=items]:[checked]‘).val();</li>
 	</ul>
-	<div id="update" class="" style="">
+	<div id="update" class="qa" style="">
 		<input type="radio" id="" name='update' value="第一项" >第一项
 		<input type="radio" id="" name='update' value="第二项" >第二项
 		<input type="radio" id="" name='update' value="第三项" >第三项
 	</div>
-	<h4>2. 鼠标移上:div（显示）下滑，移出：div隐藏（上滑）</h4>
-	<ul id="">
-	  <li>两种情况：plan1. 鼠标移上，显;移出，隐; plan2. 鼠标点击，显；失去焦点或点击月份之后，隐</li>
-	  <li>？？，Q1:plan2,失去焦点时，div隐，问题：div内点击时，也会失去焦点，此时也会隐，就有问题了。  </li>
-	  <li></li>
-	</ul>
-	<div id="" class="" style="">
+	<div id="" class="qa" style="">
+		<h4>4. 鼠标移上:div（显示）下滑，移出：div隐藏（上滑）</h4>
+		<ul id="">
+		  <li>两种情况：plan1. 鼠标移上，显;移出，隐; plan2. 鼠标点击，显；失去焦点或点击月份之后，隐</li>
+		  <li>？？，Q1:plan2,失去焦点时，div隐，问题：div内点击时，也会失去焦点，此时也会隐，就有问题了。  </li>
+		  <li></li>
+		</ul>
+	</div>
+	<div id="" class="qa" style="">
 		<div><input id="hover1" class="hoveript" style="" value="鼠标事件"/><input type="" id="hover2" class="hoveript" value="点击事件"/></div>
 		<div id="hover2adddiv" class="adddiv" style=""><select id="year2" class="year"></select>年<select id="month2" class="month"></select>月</div>
+	</div>
+	<div id="array" class="qa" style="">
+		<h3>5. 数组赋值，不改变原数组的值</h3>
+		<ul id="">
+		  <li>1. 给数组B添加一个数据(位置0)，每次B=A，然后B添加数据b,可然B,每次添加一次，B就会多重复一个数据 <input type="button" id="arrbtn1" value="数据赋值" /> </li>
+		  <li></li>
+		  <li></li>
+		</ul>
 	</div>
    </body>
 </html>
